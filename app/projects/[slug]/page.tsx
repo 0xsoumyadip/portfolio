@@ -3,6 +3,72 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProject, projects } from "@/config/projects";
 export const dynamicParams = false;
-export function generateStaticParams() { return projects.map(({ slug }) => ({ slug })); }
-export async function generateMetadata({ params }: PageProps<"/projects/[slug]">): Promise<Metadata> { const project = getProject((await params).slug); return project ? { title: project.name, description: project.description } : {}; }
-export default async function ProjectPage({ params }: PageProps<"/projects/[slug]">) { const project = getProject((await params).slug); if (!project) notFound(); return <main><article className="section pt-20"><div className="shell"><Link href="/#projects" className="text-sm text-[var(--muted)] hover:text-[var(--ink)]">← Back to selected work</Link><p className="eyebrow mt-16">Case study / {project.category}</p><h1 className="display mt-5 text-6xl font-semibold md:text-8xl">{project.name}</h1><p className="mt-8 max-w-2xl text-xl leading-relaxed text-[var(--muted)]">{project.description}</p><div className="mt-14 aspect-[2/1]" style={{ backgroundColor: project.accent }} /><div className="mt-16 grid gap-12 md:grid-cols-[1fr_2fr]"><p className="eyebrow">The story</p><div className="space-y-12"><div><h2 className="text-2xl font-semibold">The challenge</h2><p className="mt-3 text-lg leading-relaxed text-[var(--muted)]">{project.problem}</p></div><div><h2 className="text-2xl font-semibold">The approach</h2><p className="mt-3 text-lg leading-relaxed text-[var(--muted)]">{project.approach}</p></div><div><h2 className="text-2xl font-semibold">Highlights</h2><ul className="mt-4 grid gap-3 sm:grid-cols-2">{project.keyFeatures.map((feature) => <li key={feature} className="border-t rule py-3">{feature}</li>)}</ul></div></div></div></div></article></main>; }
+export function generateStaticParams() {
+  return projects.map(({ slug }) => ({ slug }));
+}
+export async function generateMetadata({
+  params,
+}: PageProps<"/projects/[slug]">): Promise<Metadata> {
+  const project = getProject((await params).slug);
+  return project
+    ? { title: project.name, description: project.description }
+    : {};
+}
+export default async function ProjectPage({
+  params,
+}: PageProps<"/projects/[slug]">) {
+  const project = getProject((await params).slug);
+  if (!project) notFound();
+  return (
+    <main>
+      <article className="section pt-20">
+        <div className="shell">
+          <Link
+            href="/#projects"
+            className="text-sm text-[var(--muted)] hover:text-[var(--ink)]"
+          >
+            ← Back to selected work
+          </Link>
+          <p className="eyebrow mt-16">Case study / {project.category}</p>
+          <h1 className="display mt-5 text-6xl font-semibold md:text-8xl">
+            {project.name}
+          </h1>
+          <p className="mt-8 max-w-2xl text-xl leading-relaxed text-[var(--muted)]">
+            {project.description}
+          </p>
+          <div
+            className="mt-14 aspect-[2/1]"
+            style={{ backgroundColor: project.accent }}
+          />
+          <div className="mt-16 grid gap-12 md:grid-cols-[1fr_2fr]">
+            <p className="eyebrow">The story</p>
+            <div className="space-y-12">
+              <div>
+                <h2 className="text-2xl font-semibold">The challenge</h2>
+                <p className="mt-3 text-lg leading-relaxed text-[var(--muted)]">
+                  {project.problem}
+                </p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-semibold">The approach</h2>
+                <p className="mt-3 text-lg leading-relaxed text-[var(--muted)]">
+                  {project.approach}
+                </p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-semibold">Highlights</h2>
+                <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {project.keyFeatures.map((feature) => (
+                    <li key={feature} className="border-t rule py-3">
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+  );
+}

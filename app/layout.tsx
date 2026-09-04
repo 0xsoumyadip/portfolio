@@ -13,7 +13,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
-      <body><a className="skip-link" href="#main-content">Skip to content</a><Header />{children}<Footer /></body>
+      <body>
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

@@ -1,6 +1,13 @@
 @import "tailwindcss";
 
-:root { --canvas: #f7f7f4; --ink: #161817; --muted: #626762; --line: #dedfd9; --accent: #176b50; --accent-soft: #dcece4; }
+:root {
+  --canvas: #f7f7f4;
+  --ink: #161817;
+  --muted: #626762;
+  --line: #dedfd9;
+  --accent: #176b50;
+  --accent-soft: #dcece4;
+}
 
 @theme inline {
   --color-background: var(--canvas);
@@ -8,12 +15,72 @@
   --font-sans: Arial, sans-serif;
 }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { background: var(--canvas); color: var(--ink); font-family: Arial, Helvetica, sans-serif; }
-::selection { background: var(--accent-soft); }
-a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
-.skip-link { position: fixed; z-index: 100; left: 1rem; top: -5rem; background: var(--ink); color: white; padding: .75rem 1rem; transition: top .15s; }.skip-link:focus { top: 1rem; }
-.section { scroll-margin-top: 5rem; padding: 6rem 1.5rem; }.shell { max-width: 75rem; margin: 0 auto; }.eyebrow { color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }.display { letter-spacing: -.065em; line-height: .92; }.rule { border-color: var(--line); }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
-@media (min-width: 768px) { .section { padding: 8rem 2.5rem; } }
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+::selection {
+  background: var(--accent-soft);
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  left: 1rem;
+  top: -5rem;
+  background: var(--ink);
+  color: white;
+  padding: 0.75rem 1rem;
+  transition: top 0.15s;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+.section {
+  scroll-margin-top: 5rem;
+  padding: 6rem 1.5rem;
+}
+.shell {
+  max-width: 75rem;
+  margin: 0 auto;
+}
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.display {
+  letter-spacing: -0.065em;
+  line-height: 0.92;
+}
+.rule {
+  border-color: var(--line);
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+@media (min-width: 768px) {
+  .section {
+    padding: 8rem 2.5rem;
+  }
+}

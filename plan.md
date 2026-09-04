@@ -6,17 +6,18 @@
 
 ## Assumptions (labeled — confirm or override before Phase 1)
 
-| # | Assumption | Why it matters |
-|---|---|---|
-| A1 | You have a resume PDF, real project data, and a headshot/illustration ready or in progress | Content blocks implementation more than code does |
-| A2 | Deployment target is **Vercel** (native Next.js support, zero-config) | Affects env var setup, analytics, image optimization |
-| A3 | Contact form uses a transactional email API (**Resend**) rather than a full backend | Simplest secure option for a static-ish portfolio |
-| A4 | You want **3–6 featured projects**, not a large catalog | Affects whether filtering/pagination is worth building |
-| A5 | No CMS — content lives in local TypeScript/JSON files you edit directly | Fastest to ship; upgrade path to a CMS noted in Future Improvements |
-| A6 | Single-language (English) site | Skips i18n routing complexity |
-| A7 | You want a single-page scrolling site with anchor navigation (Hero → Contact), not separate routed pages per section, but **project case studies get their own routes** (`/projects/[slug]`) | Common, effective pattern for portfolios; confirm if you'd rather have fully separate pages |
+| #   | Assumption                                                                                                                                                                                   | Why it matters                                                                              |
+| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| A1  | You have a resume PDF, real project data, and a headshot/illustration ready or in progress                                                                                                   | Content blocks implementation more than code does                                           |
+| A2  | Deployment target is **Vercel** (native Next.js support, zero-config)                                                                                                                        | Affects env var setup, analytics, image optimization                                        |
+| A3  | Contact form uses a transactional email API (**Resend**) rather than a full backend                                                                                                          | Simplest secure option for a static-ish portfolio                                           |
+| A4  | You want **3–6 featured projects**, not a large catalog                                                                                                                                      | Affects whether filtering/pagination is worth building                                      |
+| A5  | No CMS — content lives in local TypeScript/JSON files you edit directly                                                                                                                      | Fastest to ship; upgrade path to a CMS noted in Future Improvements                         |
+| A6  | Single-language (English) site                                                                                                                                                               | Skips i18n routing complexity                                                               |
+| A7  | You want a single-page scrolling site with anchor navigation (Hero → Contact), not separate routed pages per section, but **project case studies get their own routes** (`/projects/[slug]`) | Common, effective pattern for portfolios; confirm if you'd rather have fully separate pages |
 
 **Information I need from you before implementation starts:**
+
 1. Full name, title/tagline, and a 2–3 sentence bio
 2. Resume file (PDF) and whether you want an inline preview or download-only
 3. Project list: name, description, problem solved, tech stack, links (GitHub/live demo), and images for each
@@ -60,6 +61,7 @@ Single scrolling page at `/` with anchor sections; project detail pages at `/pro
 ```
 
 **Navigation:**
+
 - Sticky header, transparent over hero → solid background with subtle border/blur after scroll past hero (small blur, not heavy glassmorphism).
 - Desktop: logo/name left, section links center/right, theme toggle + "Resume" CTA button right.
 - Mobile: logo + hamburger → shadcn `Sheet` sliding from the right with full nav + socials + resume CTA + theme toggle.
@@ -71,6 +73,7 @@ Single scrolling page at `/` with anchor sections; project detail pages at `/pro
 ## 5. Section-by-Section Plan
 
 ### Hero
+
 - Eyebrow text (e.g., "Full-Stack Developer") + large name + one-line value proposition + 2–3 sentence intro.
 - Primary CTA: "View Projects" (scrolls to Projects). Secondary CTA: "Download Resume" (direct file link) or "Contact Me."
 - Social icon row (Lucide icons: Github, Linkedin, Mail, Twitter/X as needed) with accessible labels.
@@ -78,16 +81,19 @@ Single scrolling page at `/` with anchor sections; project detail pages at `/pro
 - Entrance animation: staggered fade/slide-up on mount (name → tagline → CTAs → socials), ~400–600ms total, disabled under reduced motion.
 
 ### About
+
 - Short bio (2–3 paragraphs): journey, what you focus on now, what drives you.
 - Optional stat row (years experience, projects shipped, companies worked with) as a lightweight `Card`/grid — only if the numbers are genuinely compelling, not filler.
 - Optional "currently" line (what you're learning/building now) — adds a human, current feel.
 
 ### Skills
+
 - Grouped by category (Frontend, Backend, Databases, DevOps/Cloud, Tools/Other) using shadcn `Tabs` or a segmented layout — clicking a category filters the visible chips, avoiding one giant wall of icons.
 - Each skill rendered as a `Badge`, optionally with a Lucide/brand icon, in a responsive flex-wrap grid.
 - Avoid subjective proficiency bars (e.g., "React 90%") — hiring managers generally find them unconvincing; prefer grouping + optional years-used tag instead.
 
 ### Projects
+
 - Most important section — gets the most visual weight and screen real estate.
 - Featured project: one larger "hero" card (full-width or 2/3 width) for your best work.
 - Remaining projects: responsive grid of `Card`s (image, title, one-line description, tech badges, GitHub + live-demo icon links).
@@ -96,10 +102,12 @@ Single scrolling page at `/` with anchor sections; project detail pages at `/pro
 - Optional category filter (e.g., "Web," "Mobile," "Open Source") via `Tabs` — only include if you'll have 6+ projects; skip for 3–5.
 
 ### Resume
+
 - Short summary line + prominent "Download Resume (PDF)" button.
 - Optional inline preview using an `<iframe>` or a rendered summary of key sections (not required — a clean download CTA is often enough).
 
 ### Contact
+
 - Form: Name, Email, Message (shadcn `Input`, `Textarea`, `Label`, `Button`) with client + server-side validation (Zod).
 - Submits via a Next.js Route Handler (`/api/contact`) to **Resend** (or similar) — keeps API keys server-side only, never exposed to the client.
 - Rate-limiting (basic IP-based) and a honeypot field to deter spam bots.
@@ -107,6 +115,7 @@ Single scrolling page at `/` with anchor sections; project detail pages at `/pro
 - Success/error state shown via shadcn `Sonner`/`Toast`, not a page reload.
 
 ### Footer
+
 - Name/logo, quick nav links, social icons, © year (computed, not hardcoded), optional "Built with Next.js & shadcn/ui" line.
 
 ---
@@ -134,6 +143,7 @@ Single scrolling page at `/` with anchor sections; project detail pages at `/pro
 ```
 
 **Server vs. Client components:**
+
 - Default everything to **Server Components**. Only mark `"use client"` where interactivity/state/browser APIs are required:
   - `ThemeToggle`, `MobileNav`/`Sheet`, `ContactForm`, `ActiveSectionObserver`, any scroll-reveal wrapper, `ProjectFilterTabs` (if used).
 - Static data (projects, experience, skills) is read at build/request time in Server Components and passed down as props — no client-side fetching needed for a portfolio.
@@ -223,7 +233,7 @@ export interface ExperienceItem {
   company: string;
   companyUrl?: string;
   role: string;
-  startDate: string;     // "2023-01"
+  startDate: string; // "2023-01"
   endDate: string | "Present";
   location?: string;
   achievements: string[];
@@ -234,8 +244,8 @@ export interface ExperienceItem {
 export interface Project {
   slug: string;
   name: string;
-  description: string;          // short, for cards
-  problem: string;               // for case-study page
+  description: string; // short, for cards
+  problem: string; // for case-study page
   approach: string;
   keyFeatures: string[];
   technologies: string[];
@@ -273,20 +283,20 @@ Content lives in plain `.ts` files under `config/` (typed against the interfaces
 
 ## 9. shadcn/ui Components to Use
 
-| Component | Where |
-|---|---|
-| `Button` | CTAs throughout |
-| `Card` | Project cards, stat cards, timeline entries |
-| `Badge` | Skills, tech tags |
-| `Sheet` | Mobile navigation |
-| `Dialog` | Optional project quick-preview modal |
-| `Tabs` | Skills categories, project filtering |
-| `Tooltip` | Icon-only social links, nav icons |
-| `Separator` | Between sections/footer columns |
-| `Input`, `Textarea`, `Label`, `Form` | Contact form |
-| `Sonner` (toast) | Form submit feedback |
-| `Avatar` | Profile image fallback handling |
-| `Skeleton` | Loading state if any client fetch is added later |
+| Component                            | Where                                            |
+| ------------------------------------ | ------------------------------------------------ |
+| `Button`                             | CTAs throughout                                  |
+| `Card`                               | Project cards, stat cards, timeline entries      |
+| `Badge`                              | Skills, tech tags                                |
+| `Sheet`                              | Mobile navigation                                |
+| `Dialog`                             | Optional project quick-preview modal             |
+| `Tabs`                               | Skills categories, project filtering             |
+| `Tooltip`                            | Icon-only social links, nav icons                |
+| `Separator`                          | Between sections/footer columns                  |
+| `Input`, `Textarea`, `Label`, `Form` | Contact form                                     |
+| `Sonner` (toast)                     | Form submit feedback                             |
+| `Avatar`                             | Profile image fallback handling                  |
+| `Skeleton`                           | Loading state if any client fetch is added later |
 
 Deliberately **not** using: `Accordion`, `Carousel`, `NavigationMenu` (dropdown mega-menu is overkill for a portfolio's flat nav), `Table` — none earn their complexity here.
 
@@ -358,69 +368,78 @@ Deliberately **not** using: `Accordion`, `Carousel`, `NavigationMenu` (dropdown 
 
 ## 15. Recommended Dependencies
 
-| Package | Purpose |
-|---|---|
-| `next`, `react`, `react-dom` (latest stable) | Framework |
-| `typescript` | Type safety |
-| `tailwindcss`, `postcss`, `autoprefixer` | Styling |
-| `shadcn/ui` CLI + `@radix-ui/*` (installed per-component) | UI primitives |
-| `lucide-react` | Icons |
-| `next-themes` | Dark/light theme |
-| `zod` | Form + API input validation |
-| `react-hook-form` + `@hookform/resolvers` | Contact form state/validation |
-| `resend` | Transactional email for contact form |
-| `class-variance-authority`, `clsx`, `tailwind-merge` | shadcn utility deps (installed automatically) |
-| `framer-motion` *(optional)* | Only if CSS-only animation feels insufficient |
-| `sonner` | Toast notifications (shadcn-recommended) |
-| ESLint + Prettier + `eslint-config-next` | Code quality |
+| Package                                                   | Purpose                                       |
+| --------------------------------------------------------- | --------------------------------------------- |
+| `next`, `react`, `react-dom` (latest stable)              | Framework                                     |
+| `typescript`                                              | Type safety                                   |
+| `tailwindcss`, `postcss`, `autoprefixer`                  | Styling                                       |
+| `shadcn/ui` CLI + `@radix-ui/*` (installed per-component) | UI primitives                                 |
+| `lucide-react`                                            | Icons                                         |
+| `next-themes`                                             | Dark/light theme                              |
+| `zod`                                                     | Form + API input validation                   |
+| `react-hook-form` + `@hookform/resolvers`                 | Contact form state/validation                 |
+| `resend`                                                  | Transactional email for contact form          |
+| `class-variance-authority`, `clsx`, `tailwind-merge`      | shadcn utility deps (installed automatically) |
+| `framer-motion` _(optional)_                              | Only if CSS-only animation feels insufficient |
+| `sonner`                                                  | Toast notifications (shadcn-recommended)      |
+| ESLint + Prettier + `eslint-config-next`                  | Code quality                                  |
 
 ---
 
 ## 16. Development Phases
 
 ### Phase 1 — Project Setup & Configuration
+
 - `create-next-app` (TypeScript, App Router, Tailwind, ESLint, `src/` optional).
 - Initialize shadcn/ui (`npx shadcn@latest init`), configure `components.json`, base theme tokens.
 - Set up folder structure (`config/`, `types/`, `lib/`), Prettier + ESLint rules, `.env.local` scaffold.
 - **Output:** running dev server with base Tailwind/shadcn theme, no content yet.
 
 ### Phase 2 — Design System & Global Components
+
 - Define color tokens (light/dark CSS variables), type scale, spacing scale in `globals.css`/`tailwind.config.ts`.
 - Install core shadcn components (Button, Card, Badge, Separator, Tooltip).
 - Build `ThemeProvider` + `ThemeToggle`.
 - **Output:** themeable base UI kit, storybook-less visual check via a scratch page.
 
 ### Phase 3 — Navigation & Layout
+
 - Build `Header`, `MobileNav` (Sheet), `Footer`, root `layout.tsx` with metadata defaults.
 - Implement active-section observer + smooth-scroll anchors.
 - **Files:** `components/layout/*`, `app/layout.tsx`.
 
 ### Phase 4 — Hero / About / Skills
+
 - Build `Hero`, `About`, `Skills` sections wired to `config/site.ts` and `config/skills.ts`.
 - Implement `ScrollReveal` wrapper and hero entrance animation.
 - **Files:** `components/sections/hero.tsx`, `about.tsx`, `skills.tsx`, `config/skills.ts`.
 
 ### Phase 5 — Experience / Projects
+
 - Build `Experience` timeline from `config/experience.ts`.
 - Build `Projects` grid + `ProjectCard` + `/projects/[slug]` case-study route with `generateStaticParams`.
 - **Files:** `components/sections/experience.tsx`, `projects.tsx`, `shared/project-card.tsx`, `app/projects/[slug]/page.tsx`, `config/projects.ts`.
 
 ### Phase 6 — Contact / Resume / Footer
+
 - Build `ContactForm` (react-hook-form + Zod), `app/api/contact/route.ts` (Resend integration, rate limiting, honeypot).
 - Build `Resume` section + place `resume.pdf` in `public/`.
 - Finalize `Footer`.
 - **Files:** `components/sections/contact.tsx`, `resume.tsx`, `app/api/contact/route.ts`, `lib/email.ts`, `lib/validations/contact.ts`.
 
 ### Phase 7 — Animation & Polish
+
 - Add scroll-reveal to remaining sections, refine hover/focus micro-interactions, verify `prefers-reduced-motion` fallbacks.
 - Visual QA pass across breakpoints (mobile/tablet/desktop), spacing/typography refinement.
 
 ### Phase 8 — SEO / Accessibility / Performance
+
 - Add full metadata, OG images, `sitemap.ts`, `robots.ts`, JSON-LD.
 - Run axe/Lighthouse audits, fix contrast/focus/ARIA issues.
 - Optimize images/fonts, verify Core Web Vitals.
 
 ### Phase 9 — Testing & Deployment
+
 - Cross-browser + device testing, form submission end-to-end test, 404/error page check.
 - Connect Vercel project, set environment variables (`RESEND_API_KEY`, site URL), configure custom domain.
 - Optional: Vercel Analytics, error monitoring (Sentry) if desired.
@@ -458,13 +477,13 @@ Deliberately **not** using: `Accordion`, `Carousel`, `NavigationMenu` (dropdown 
 
 ## Technical Risks & Mitigations
 
-| Risk | Mitigation |
-|---|---|
+| Risk                                           | Mitigation                                                                                                  |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | Over-animating hurts performance/accessibility | Keep to CSS transforms/opacity only, gate everything behind reduced-motion, review Phase 7 with a fresh eye |
-| Contact form abused for spam | Honeypot + rate limiting + Zod validation server-side (never trust client validation alone) |
-| Image-heavy Projects section hurts LCP | `next/image` with correct `sizes`, lazy-load below-the-fold cards, only `priority` the hero |
-| Content drift (stale projects/experience) | Data-driven config files make updates a 2-minute edit, not a code change |
-| Scope creep (CMS, blog, i18n) before v1 ships | Explicitly deferred to Future Improvements — ship the core portfolio first |
+| Contact form abused for spam                   | Honeypot + rate limiting + Zod validation server-side (never trust client validation alone)                 |
+| Image-heavy Projects section hurts LCP         | `next/image` with correct `sizes`, lazy-load below-the-fold cards, only `priority` the hero                 |
+| Content drift (stale projects/experience)      | Data-driven config files make updates a 2-minute edit, not a code change                                    |
+| Scope creep (CMS, blog, i18n) before v1 ships  | Explicitly deferred to Future Improvements — ship the core portfolio first                                  |
 
 ---
 

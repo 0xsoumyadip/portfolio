@@ -1,7 +1,67 @@
-export type Project = { slug: string; name: string; description: string; problem: string; approach: string; keyFeatures: string[]; technologies: string[]; category: string; featured?: boolean; accent: string };
+export type Project = {
+  slug: string;
+  name: string;
+  description: string;
+  problem: string;
+  approach: string;
+  keyFeatures: string[];
+  technologies: string[];
+  category: string;
+  featured?: boolean;
+  accent: string;
+};
 export const projects: Project[] = [
-  { slug: "northstar", name: "Northstar", description: "A calm workspace for turning scattered goals into deliberate weekly action.", problem: "Teams needed a clearer way to move from ambitious planning to visible progress.", approach: "I designed a focused weekly planning flow and an information system that makes priorities feel obvious.", keyFeatures: ["Weekly planning rituals", "Shared goals and context", "Progress snapshots"], technologies: ["Next.js", "TypeScript", "Postgres"], category: "Product", featured: true, accent: "#dcece4" },
-  { slug: "field-notes", name: "Field Notes", description: "A lightweight research library that makes insights easier to find and reuse.", problem: "Research findings were disappearing into folders and long documents.", approach: "I made capture, tagging, and retrieval feel immediate, without introducing a heavy system.", keyFeatures: ["Fast capture", "Semantic tagging", "Shareable collections"], technologies: ["React", "Node.js", "SQLite"], category: "Tool", accent: "#e8e1d4" },
-  { slug: "common-ground", name: "Common Ground", description: "A digital home for a local community to gather, share, and organize.", problem: "A growing volunteer group had no accessible place to coordinate its work.", approach: "I created a friendly, mobile-first platform centered on the moments that bring people together.", keyFeatures: ["Community calendar", "Volunteer matching", "Simple publishing"], technologies: ["Next.js", "Tailwind", "Supabase"], category: "Community", accent: "#e6e0f2" },
+  {
+    slug: "northstar",
+    name: "Northstar",
+    description:
+      "A calm workspace for turning scattered goals into deliberate weekly action.",
+    problem:
+      "Teams needed a clearer way to move from ambitious planning to visible progress.",
+    approach:
+      "I designed a focused weekly planning flow and an information system that makes priorities feel obvious.",
+    keyFeatures: [
+      "Weekly planning rituals",
+      "Shared goals and context",
+      "Progress snapshots",
+    ],
+    technologies: ["Next.js", "TypeScript", "Postgres"],
+    category: "Product",
+    featured: true,
+    accent: "#dcece4",
+  },
+  {
+    slug: "field-notes",
+    name: "Field Notes",
+    description:
+      "A lightweight research library that makes insights easier to find and reuse.",
+    problem:
+      "Research findings were disappearing into folders and long documents.",
+    approach:
+      "I made capture, tagging, and retrieval feel immediate, without introducing a heavy system.",
+    keyFeatures: ["Fast capture", "Semantic tagging", "Shareable collections"],
+    technologies: ["React", "Node.js", "SQLite"],
+    category: "Tool",
+    accent: "#e8e1d4",
+  },
+  {
+    slug: "common-ground",
+    name: "Common Ground",
+    description:
+      "A digital home for a local community to gather, share, and organize.",
+    problem:
+      "A growing volunteer group had no accessible place to coordinate its work.",
+    approach:
+      "I created a friendly, mobile-first platform centered on the moments that bring people together.",
+    keyFeatures: [
+      "Community calendar",
+      "Volunteer matching",
+      "Simple publishing",
+    ],
+    technologies: ["Next.js", "Tailwind", "Supabase"],
+    category: "Community",
+    accent: "#e6e0f2",
+  },
 ];
-export const getProject = (slug: string) => projects.find((project) => project.slug === slug);
+export const getProject = (slug: string) =>
+  projects.find((project) => project.slug === slug);

@@ -1,1 +1,35 @@
-export function About() { return <section id="about" className="section border-y rule" aria-labelledby="about-title"><div className="shell grid gap-10 md:grid-cols-12"><div className="md:col-span-3"><p className="eyebrow">01 / About</p></div><div className="md:col-span-8"><h2 id="about-title" className="display text-4xl font-semibold md:text-6xl">Good work sits at the intersection of clarity, craft, and care.</h2><div className="mt-8 max-w-2xl space-y-5 text-lg leading-relaxed text-[var(--muted)]"><p>This is an intentionally editable foundation for your portfolio. Replace this copy with your story: how you got here, what you care about, and the kind of problems you&apos;re drawn to.</p><p>Keep it human. The strongest portfolio introductions say enough to give people a sense of your perspective, then let the work do the convincing.</p></div></div></div></section>; }
+export function About() {
+  return (
+    <section
+      id="about"
+      className="section border-y rule"
+      aria-labelledby="about-title"
+    >
+      <div className="shell grid gap-10 md:grid-cols-12">
+        <div className="md:col-span-3">
+          <p className="eyebrow">01 / About</p>
+        </div>
+        <div className="md:col-span-8">
+          <h2
+            id="about-title"
+            className="display text-4xl font-semibold md:text-6xl"
+          >
+            Good work sits at the intersection of clarity, craft, and care.
+          </h2>
+          <div className="mt-8 max-w-2xl space-y-5 text-lg leading-relaxed text-[var(--muted)]">
+            <p>
+              This is an intentionally editable foundation for your portfolio.
+              Replace this copy with your story: how you got here, what you care
+              about, and the kind of problems you&apos;re drawn to.
+            </p>
+            <p>
+              Keep it human. The strongest portfolio introductions say enough to
+              give people a sense of your perspective, then let the work do the
+              convincing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
