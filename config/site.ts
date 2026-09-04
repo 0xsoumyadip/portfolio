@@ -1,11 +1,11 @@
 export const siteConfig = {
-  name: "Your Name",
-  title: "Your Name — Product-minded developer",
+  name: "Soumyadip Haldar",
+  title: "Soumyadip Haldar — Product-minded developer",
   tagline:
     "Product-minded developer building useful, considered web experiences.",
   description:
-    "A personal portfolio for Your Name, a product-minded developer.",
+    "A personal portfolio for Soumyadip Haldar, a product-minded developer.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://example.com",
-  email: "hello@example.com",
+  email: "soumyadiphaldar3@gmail.com",
   location: "Based wherever good work happens",
 };

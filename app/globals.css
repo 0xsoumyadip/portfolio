@@ -7,6 +7,19 @@
   --line: #dedfd9;
   --accent: #176b50;
   --accent-soft: #dcece4;
+  --surface: #ffffff;
+  color-scheme: light;
+}
+
+.dark {
+  --canvas: #121513;
+  --ink: #f1f3ee;
+  --muted: #abb2ab;
+  --line: #353a36;
+  --accent: #77c5a5;
+  --accent-soft: #21382e;
+  --surface: #1b201d;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -25,6 +38,9 @@ body {
   background: var(--canvas);
   color: var(--ink);
   font-family: Arial, Helvetica, sans-serif;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 ::selection {
   background: var(--accent-soft);

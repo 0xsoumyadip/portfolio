@@ -3,7 +3,7 @@ export function Resume() {
     <section className="section border-y rule" aria-labelledby="resume-title">
       <div className="shell flex flex-col justify-between gap-8 md:flex-row md:items-end">
         <div>
-        <p className="eyebrow">04 / Resume</p>
+          <p className="eyebrow">04 / Resume</p>
           <h2
             id="resume-title"
             className="display mt-4 text-4xl font-semibold md:text-6xl"
@@ -12,7 +12,7 @@ export function Resume() {
           </h2>
           <p className="mt-5 max-w-lg text-lg leading-relaxed text-[var(--muted)]">
             Add your PDF to{" "}
-            <code className="rounded bg-white px-1.5 py-1 text-sm">
+            <code className="rounded bg-[var(--surface)] px-1.5 py-1 text-sm">
               public/resume.pdf
             </code>{" "}
             and this link will be ready to use.

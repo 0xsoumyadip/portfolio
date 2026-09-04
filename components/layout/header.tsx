@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { siteConfig } from "@/config/site";
-const nav = ["About", "Skills", "Experience", "Projects", "Contact"];
+const nav = ["About", "Skills", "Projects", "Contact"];
 export function Header() {
   return (
     <header className="sticky top-0 z-20 border-b border-[var(--line)] bg-[color:var(--canvas)]/95 backdrop-blur-sm">
@@ -23,12 +24,15 @@ export function Header() {
             </a>
           ))}
         </div>
-        <a
-          href="#contact"
-          className="rounded-full bg-[var(--ink)] px-4 py-2 text-sm font-medium text-white"
-        >
-          Let&apos;s talk
-        </a>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <a
+            href="#contact"
+            className="rounded-full bg-[var(--ink)] px-4 py-2 text-sm font-medium text-[var(--canvas)]"
+          >
+            Let&apos;s talk
+          </a>
+        </div>
       </nav>
     </header>
   );
