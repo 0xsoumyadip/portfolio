@@ -1,0 +1,2 @@
+import { siteConfig } from "@/config/site";
+export function Footer() { return <footer className="border-t rule px-6 py-8 md:px-10"><div className="shell flex flex-col justify-between gap-4 text-sm text-[var(--muted)] md:flex-row"><p>© {new Date().getFullYear()} {siteConfig.name}. Built with care.</p><a className="hover:text-[var(--ink)]" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></div></footer>; }

@@ -1,0 +1,1 @@
+export const skillGroups = [{ name: "Frontend", items: ["TypeScript", "React", "Next.js", "Tailwind CSS", "Accessibility"] }, { name: "Backend", items: ["Node.js", "REST APIs", "PostgreSQL", "Supabase"] }, { name: "Practice", items: ["Product thinking", "Design systems", "Testing", "Performance"] }];
